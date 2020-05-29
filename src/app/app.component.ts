@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CocktailService } from './cocktail.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'jobs';
+  drinks = [];
+  query = '';
+
+  constructor(private cocktail: CocktailService) { }
+
+  search(query: string) {
+    this.query = query;
+
+    this.cocktail.search(query).subscribe((response) => {
+      this.drinks = response;
+    });
+  }
 }
